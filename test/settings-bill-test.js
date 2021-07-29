@@ -47,9 +47,9 @@ describe('settings-bill', function(){
         settingsBill.recordAction('call');
         settingsBill.recordAction('sms');
 
-        assert.strictEqual(2.35, settingsBill.totals().smsTotal);
-        assert.strictEqual(3.35, settingsBill.totals().callTotal);
-        assert.strictEqual(5.70, settingsBill.totals().grandTotal);
+        assert.strictEqual(2.35.toFixed(2), settingsBill.totals().smsTotal);
+        assert.strictEqual(3.35.toFixed(2), settingsBill.totals().callTotal);
+        assert.strictEqual(5.70.toFixed(2), settingsBill.totals().grandTotal);
 
     });
 
@@ -67,9 +67,9 @@ describe('settings-bill', function(){
         settingsBill.recordAction('sms');
         settingsBill.recordAction('sms');
 
-        assert.strictEqual(4.70, settingsBill.totals().smsTotal);
-        assert.strictEqual(6.70, settingsBill.totals().callTotal);
-        assert.strictEqual(11.40, settingsBill.totals().grandTotal);
+        assert.strictEqual(4.70.toFixed(2), settingsBill.totals().smsTotal);
+        assert.strictEqual(6.70.toFixed(2), settingsBill.totals().callTotal);
+        assert.strictEqual(11.40.toFixed(2), settingsBill.totals().grandTotal);
 
     });
 
