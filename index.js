@@ -1,10 +1,11 @@
 const express = require('express')
 const exphbs  = require('express-handlebars')
 const SettingsBill = require('./settings-bill')
+const moment = require('moment')
 
 const app = express()
-const settingsBill = SettingsBill();
-
+const settingsBill = SettingsBill()
+moment().format()
 app.engine('handlebars', exphbs({layoutsDir: "views/layouts/"}))
 app.set('view engine', 'handlebars')
 
@@ -51,12 +52,21 @@ app.post("/action", (req, res) => {
 })
 
 app.get("/actions", (req, res) => {
-    res.render('actions', {actions: settingsBill.actions()})
+    res.render('actions', {
+        actions: settingsBill.actions(),
+    })
+
+    
 })
 
 app.get("/actions/:actionType", (req, res) => {
     const actionType = req.params.actionType
     res.render('actions', {actions: settingsBill.actionsFor(actionType)})
+
+    let actions = settingsBill.actions()
+    actions.forEach(elem => {
+        elem.timestamps = moment(elem.timestamp).fromNow();
+    })
 })
 
 const PORT = process.env.PORT || 3011

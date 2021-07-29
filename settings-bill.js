@@ -1,6 +1,3 @@
-const moment = require('moment')
-moment().format()
-
 module.exports = function SettingsBill() {
 
     let smsCost;
@@ -28,7 +25,6 @@ module.exports = function SettingsBill() {
     }
 
     function recordAction(action) {
-
         let cost = 0;
         if (action === 'sms' && !hasReachedCriticalLevel()){
             cost = smsCost;
@@ -37,11 +33,13 @@ module.exports = function SettingsBill() {
             cost = callCost;
         }
 
-        actionList.push({
-            type: action,
-            cost,
-            timestamp: moment(new Date).fromNow()
-        });
+        if(cost > 0) {
+            actionList.push({
+                type: action,
+                cost,
+                timestamp: new Date
+            });
+        }
     }
 
     function actions(){
@@ -93,12 +91,12 @@ module.exports = function SettingsBill() {
     }
 
     function totals() {
-        let smsTotal = getTotal('sms').toFixed(2)
-        let callTotal = getTotal('call').toFixed(2)
+        let smsTotal = getTotal('sms')
+        let callTotal = getTotal('call')
         return {
             smsTotal,
             callTotal,
-            grandTotal : grandTotal().toFixed(2)
+            grandTotal : grandTotal()
         }
     }
 
